@@ -1,0 +1,49 @@
+services:
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: brain_tumor_api
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - MODEL_PATH=/app/model_weights/best_model_try1.pth
+      - CUDA_VISIBLE_DEVICES=0
+    volumes:
+      - ./backend:/app
+      - ./nnU-net:/app/model_weights # Mount your model directory
+      - brain_tumor_uploads:/app/uploads
+      - brain_tumor_predictions:/app/predictions
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    networks:
+      - brain_tumor_net
+
+  # Frontend (Nginx)
+  frontend:
+    image: nginx:alpine
+    container_name: brain_tumor_frontend
+    ports:
+      - "3000:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - backend
+    networks:
+      - brain_tumor_net
+
+volumes:
+  brain_tumor_uploads:
+  brain_tumor_predictions:
+
+networks:
+  brain_tumor_net:
+    driver: bridge

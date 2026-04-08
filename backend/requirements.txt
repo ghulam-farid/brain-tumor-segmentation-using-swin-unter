@@ -1,0 +1,21 @@
+Flask==2.3.2
+Flask-CORS==4.0.0
+torch==2.0.1
+torchvision==0.15.2
+monai==1.3.0
+nibabel==5.1.0
+numpy==1.24.3
+opencv-python-headless==4.8.0.74
+Pillow==10.0.0
+scipy==1.11.2
+scikit-image==0.21.0
+python-dotenv==1.0.0
+Werkzeug==2.3.7
+einops>=0.6.1
+
+
+#check the order of modalities in the training. T1 WeightedT1 Contrast EnhancedT2 WeightedFLAIR
+#during inference, the order of modalities should be the same as the training. If the order is different, the model may not perform well.
+
+
+#take the pretained model

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Tumor Segmentation - SwinUNETR</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧠 Brain Tumor Segmentation</h1>
+            <p>Using Deep Learning (SwinUNETR)</p>
+        </header>
+
+        <main>
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <h2>Step 1: Upload MRI Modalities</h2>
+                <p class="info-text">Upload all 4 required MRI modalities (T1, T1c, T2, FLAIR) in NIfTI format (.nii.gz)</p>
+
+                <div class="upload-grid">
+                    <div class="upload-box">
+                        <label for="t1">T1 Weighted</label>
+                        <input type="file" id="t1" accept=".nii,.nii.gz" />
+                        <span class="upload-status" id="t1-status"></span>
+                    </div>
+                    <div class="upload-box">
+                        <label for="t1c">T1 Contrast Enhanced</label>
+                        <input type="file" id="t1c" accept=".nii,.nii.gz" />
+                        <span class="upload-status" id="t1c-status"></span>
+                    </div>
+                    <div class="upload-box">
+                        <label for="t2">T2 Weighted</label>
+                        <input type="file" id="t2" accept=".nii,.nii.gz" />
+                        <span class="upload-status" id="t2-status"></span>
+                    </div>
+                    <div class="upload-box">
+                        <label for="flair">FLAIR</label>
+                        <input type="file" id="flair" accept=".nii,.nii.gz" />
+                        <span class="upload-status" id="flair-status"></span>
+                    </div>
+                </div>
+
+                <button id="submit-btn" class="btn-primary" disabled>
+                    🚀 Process Images
+                </button>
+            </section>
+
+            <!-- Processing Section -->
+            <section class="processing-section" style="display: none;">
+                <h2>Processing...</h2>
+                <div class="spinner"></div>
+                <p id="processing-status">Uploading files...</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" style="display: none;">
+                <h2>Step 2: Segmentation Results</h2>
+
+                <div class="results-grid">
+                    <div class="result-card">
+                        <h3>MRI Preview</h3>
+                        <img id="preview-image" src="" alt="MRI Preview" />
+                    </div>
+
+                    <div class="result-card">
+                        <h3>Tumor Statistics</h3>
+                        <div id="statistics" class="statistics-table"></div>
+                    </div>
+                </div>
+
+                <div class="download-section">
+                    <h3>Download Results</h3>
+                    <button id="download-btn" class="btn-secondary">
+                        📥 Download Segmentation Mask (.nii.gz)
+                    </button>
+                </div>
+
+                <button id="reset-btn" class="btn-secondary">
+                    🔄 Process Another Image
+                </button>
+            </section>
+
+            <!-- Error Section -->
+            <section class="error-section" style="display: none;">
+                <h2>⚠️ Error</h2>
+                <p id="error-message"></p>
+                <button id="error-reset-btn" class="btn-secondary">Try Again</button>
+            </section>
+        </main>
+
+        <footer>
+            <p>Deep Learning Research | BraTS 2021 Dataset | SwinUNETR Architecture</p>
+        </footer>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
